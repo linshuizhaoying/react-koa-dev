@@ -4,20 +4,13 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true }, // 可以考虑加密
-  email: { type: String },
+  email: { type: String, default:'' },
   signupDate: { type: Date, default: Date.now() }
 });
 
-UserSchema.pre('save', (next) => {
-  this.signupDate = Date.now();
-  next();
-});
-
-
-UserSchema.statics.findUser = function*(username, password) {  
-  const user = yield this.findOne({ 'username': username.toLowerCase() }).exec();
-  if (!user) throw new Error('User not found');
-
+UserSchema.methods.findByName = function(username){  
+  const user = this.find({ 'username': username.toLowerCase() }).exec();
+  return user
 };
 
 module.exports = mongoose.model('User', UserSchema);

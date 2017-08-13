@@ -17,8 +17,17 @@ module.exports = function(app, passport) {
     }
      ctx.body = jsonData;
   })
-  // User
-  router.post('/api/signup', usersController.signup);
+  // Add User
+  router.post('/api/signup', async (ctx, next) => {
+    return usersController.signup(ctx)
+  });
+  
+  // Edit UserName
+  router.post('/api/editUser', usersController.editUser);
+  // Delete UserName
+  router.post('/api/deleteUser', usersController.deleteUser);
+  
+  // 权限判断还没增加
   router.post('/api/login', usersController.login);
   router.get('/api/logout',  usersController.logout);
   router.get('/api/account',  usersController.account);

@@ -32,6 +32,57 @@ class HomePage extends Component {
     })
 
   }
+  signUp = () =>{
+    let obj = {
+      username:'233',
+      password:'666',
+      email:'666@qq.com'
+    }
+    FetchUtils.enhanceFetch('/api/signup',FetchUtils.options('POST', obj))
+    .then(jsonData => {
+      console.log(jsonData)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  getUserList = () => {
+    console.log('Users:')
+    //loginUser
+    FetchUtils.enhanceFetch('/api/account')
+    .then(jsonData => {
+      console.log(jsonData)
+    })
+
+  }
+  
+  editUser = () => {
+    console.log('Edit...')
+    let obj = {
+      userId:'599039005b383af744f4caac',
+      email:'666@qq.com'
+    }
+    FetchUtils.enhanceFetch('/api/editUser',FetchUtils.options('POST', obj))
+    .then(jsonData => {
+      console.log(jsonData)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  deleteUser = () => {
+    console.log('DelteUser...')
+    let obj = {
+      userId:'599039005b383af744f4caac'
+    }
+    FetchUtils.enhanceFetch('/api/deleteUser',FetchUtils.options('POST', obj))
+    .then(jsonData => {
+      console.log(jsonData)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   componentDidMount() {
 
   }
@@ -47,6 +98,13 @@ class HomePage extends Component {
       <div>
         <Button onClick ={ () => { this.fetchData() } } >Fetch测试</Button>
 
+        <Button onClick ={ () => { this.signUp() } } >注册测试</Button>
+
+        <Button onClick ={ () => { this.getUserList() } } >获取用户列表</Button>
+
+        <Button onClick ={ () => { this.editUser() } } >更改用户信息</Button>
+
+        <Button onClick ={ () => { this.deleteUser() } } >删除用户</Button>
       </div>
     )
   }

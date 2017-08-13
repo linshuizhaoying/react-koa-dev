@@ -35,7 +35,7 @@ app.use(bodyParser());
 const mongoose = require('mongoose');
 
 const dburl = config.mongo.url;
-mongoose.connect(dburl);
+mongoose.connect(dburl, {useMongoClient: true});
 
 // auth 身份验证
 const passport = require('koa-passport');
